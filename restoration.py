@@ -10,7 +10,7 @@ from model import Model
 
 class Image_Restoration(object):
 
-    def __init__(self, ):
+    def __init__(self):
 
         self.model = None
         self.x_train_path = None
@@ -79,3 +79,12 @@ class Image_Restoration(object):
                 break
 
 
+if __name__ == '__main__':
+
+    model = Model()
+    model.add_conv_2d(64, 9)
+    model.add_conv_2d(32, 9)
+    model.add_conv_2d(1, 9, use_pooling=False)
+    processor = Image_Restoration()
+    processor.load_model(model)
+    processor.train('data/train/x', 'data/train/y', coeff_tv=0.3, n_iter=100, batch_szie=20)
